@@ -1,76 +1,65 @@
-# 슬라이딩 윈도우
-checkList = [0] * 4  # 비밀번호 체크 리스트
-myList = [0] * 4  # 현재 상태 리스트
-checkSecret = 0
+import sys
+input = sys.stdin.readline
+
+checkList = [0] * 4
+myList = [0] * 4
+Result = 0
+
+S, P = map(int, input().split())
+totalList = list(input())
+checkList = list(map(int, input().split()))
 
 
-def myadd(c):
-    global checkList, myList, checkSecret
+def add(c):
+    global checkList, myList
+
     if c == 'A':
         myList[0] += 1
-        if myList[0] == checkList[0]:
-            checkSecret += 1
 
-        elif c == 'C':
-            myList[1] += 1
-            if myList[1] == checkList[1]:
-                checkSecret += 1
+    elif c == 'C':
+        myList[1] += 1
 
-        elif c == 'G':
-            myList[2] += 1
-            if myList[2] == checkList[2]:
-                checkSecret += 1
+    elif c == 'G':
+        myList[2] += 1
 
-        elif c == 'T':
-            myList[3] += 1
-            if myList[3] == checkList[3]:
-                checkSecret += 1
+    elif c == 'T':
+        myList[3] += 1
 
 
-def myremove(c):
-    global checkList, myList, checkSecret
+def delete(c):
+    global checkList, myList
 
     if c == 'A':
-        if myList[0] == checkList[0]:
-            checkSecret -= 1
         myList[0] -= 1
 
     elif c == 'C':
-        if myList[1] == checkList[1]:
-            checkSecret -= 1
         myList[1] -= 1
 
     elif c == 'G':
-        if myList[2] == checkList[2]:
-            checkSecret -= 1
         myList[2] -= 1
 
     elif c == 'T':
-        if myList[3] == checkList[3]:
-            checkSecret -= 1
         myList[3] -= 1
 
 
-S, P = map(int, input().split())
-Result = 0
-A = list(input())
-checkList = list(map(int, input().split()))
+def check():
+    global checkList, myList, Result
 
-for i in range(4):
-    if checkList[i] == 0:
-        checkSecret += 1
+    if myList[0] >= checkList[0] and myList[1] >= checkList[1] and myList[2] >= checkList[2] and myList[3] >= checkList[3]:
+        Result += 1
 
+
+# 첫 list 초기화
 for i in range(P):
-    myadd(A[i])
+    add(totalList[i])
 
-if checkSecret == 4:
-    Result += 1
+check()
+
 
 for i in range(P, S):
     j = i - P
-    myadd(A[i])
-    myremove(A[j])
-    if checkSecret == 4:
-        Result += 1
+    add(totalList[i])
+    delete(totalList[j])
+    check()
 
-    print(Result)
+print(Result)
