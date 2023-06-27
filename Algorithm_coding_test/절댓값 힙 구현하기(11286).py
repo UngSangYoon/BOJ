@@ -1,6 +1,6 @@
+"""
 from queue import PriorityQueue
 import sys
-
 print = sys.stdout.write
 input = sys.stdin.readline
 N = int(input())
@@ -16,3 +16,4 @@ for i in range(N):
             print(str((temp[1])) + "\n")
     else:
         my_Queue.put((abs(request), request))
+"""

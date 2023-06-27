@@ -1,33 +1,37 @@
-# using stack
-N = int(input())
-A = [0]*N
+# using stack , 시간 초과
+import sys
 
-for i in range (N):
+input = sys.stdin.readline
+
+N = int(input())
+A = [0] * N
+
+for i in range(N):
     A[i] = int(input())
-    
+
 stack = []
 num = 1
 result = True
-answer =""
+answer = ""
 
 for i in range(N):
     su = A[i]
     if su >= num:
-        while su >=num:
+        while su >= num:
             stack.append(num)
             num += 1
             answer += "+\n"
         stack.pop()
         answer += "-\n"
-        
+
     else:
-        n =stack.pop()
+        n = stack.pop()
         if n > su:
             print("NO")
             result = False
             break
         else:
             answer += "-\n"
-                
+
 if result:
-    print(answer) 
+    print(answer)
